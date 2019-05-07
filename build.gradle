@@ -7,6 +7,10 @@ buildscript {
     }
 }
 
+plugins { id "io.spring.dependency-management" version "1.0.4.RELEASE" }
+
+ext { springBootVersion = '2.1.4.RELEASE' }
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -27,4 +31,5 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
