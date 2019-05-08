@@ -26,4 +26,9 @@ public class PaymentController {
     public Payment getPayment(@PathVariable("id") Long id) {
     	return paymentService.getPayment(id);
     }
+	
+	@RequestMapping(method = RequestMethod.GET)
+    public String teste() {
+    	return "teste123";
+    }
 }
