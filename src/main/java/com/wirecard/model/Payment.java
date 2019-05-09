@@ -5,6 +5,9 @@ public class Payment {
 	private Double amount;
 	private Integer type;
 	private Card card;
+	private Buyer buyer;
+	private Integer status;
+	
 	public Long getId() {
 		return id;
 	}
@@ -28,5 +31,17 @@ public class Payment {
 	}
 	public void setCard(Card card) {
 		this.card = card;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public Buyer getBuyer() {
+		return buyer;
+	}
+	public void setBuyer(Buyer buyer) {
+		this.buyer = buyer;
 	}
 }

@@ -1,16 +1,22 @@
 package com.wirecard.enums;
 
 public enum PaymentCardStatus {
-	SUCCESS("success"),
-	FAIL("fail");
+	SUCCESS(1, "success"),
+	FAIL(2, "fail");
 	
-	private String status;
+	private Integer value;
+	private String description;
 	
-	private PaymentCardStatus(String status) {
-		this.status = status;
+	private PaymentCardStatus(Integer value, String description) {
+		this.value = value;
+		this.description = description;
 	}
-	
-	public String getStatus() {
-		return status;
+
+	public Integer getValue() {
+		return value;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 }

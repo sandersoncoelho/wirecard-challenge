@@ -50,7 +50,8 @@ public class PaymentControllerTest {
 	public void testCreatePaymentCreditCard() {
 		Payment payment = this.mockPayment(11L, PaymentType.CREDIT_CARD.getValue(), 234.23);
 		ResponseEntity<String> response = this.restTemplate.postForEntity(this.url + port + "/payments", payment, String.class);
-		List<String> possibleReturns = Arrays.asList(PaymentCardStatus.SUCCESS.getStatus(), PaymentCardStatus.FAIL.getStatus());
+		List<String> possibleReturns = Arrays.asList(PaymentCardStatus.SUCCESS.getDescription(), PaymentCardStatus.FAIL.getDescription());
+		System.out.println("TESTE: " + response.getBody());
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).isIn(possibleReturns);
 	}
