@@ -1,11 +1,9 @@
 package com.wirecard.model;
 
-import com.wirecard.enums.PaymentType;
-
 public class Payment {
 	private Long id;
 	private Double amount;
-	private PaymentType type;
+	private Integer type;
 	private Card card;
 	public Long getId() {
 		return id;
@@ -19,10 +17,10 @@ public class Payment {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-	public PaymentType getType() {
+	public Integer getType() {
 		return type;
 	}
-	public void setType(PaymentType type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 	public Card getCard() {

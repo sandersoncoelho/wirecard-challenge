@@ -18,7 +18,7 @@ public class PaymentRepository {
 	}
 	
 	public Payment get(Long id) {
-		return mockPayment(id, PaymentType.BOLETO, 12.12);
+		return mockPayment(id, PaymentType.BOLETO.getValue(), 12.12);
 	}
 	
 	public Payment save(Payment payment) {
@@ -29,7 +29,7 @@ public class PaymentRepository {
 		
 	}
 	
-	private Payment mockPayment(Long id, PaymentType paymentType, Double amount) {
+	private Payment mockPayment(Long id, Integer paymentType, Double amount) {
 		Payment payment = new Payment();
 		payment.setId(id);
 		payment.setType(paymentType);

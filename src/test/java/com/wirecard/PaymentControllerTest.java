@@ -32,14 +32,6 @@ public class PaymentControllerTest {
     private TestRestTemplate restTemplate;
     
     private String url;
-
-	/*@Override
-	public Application configure() {
-		forceSet(TestProperties.CONTAINER_PORT, "0");
-		enable(TestProperties.LOG_TRAFFIC);
-		enable(TestProperties.DUMP_ENTITY);
-		return new ResourceConfig(PaymentController.class);
-	}*/
     
     @Before
     public void beforeTests() {
@@ -48,7 +40,7 @@ public class PaymentControllerTest {
 
 	@Test
 	public void testCreatePaymentBoleto() {
-		Payment payment = this.mockPayment(10L, PaymentType.BOLETO, 123.12);
+		Payment payment = this.mockPayment(10L, PaymentType.BOLETO.getValue(), 123.12);
 		ResponseEntity<String> response = this.restTemplate.postForEntity(this.url + port + "/payments", payment, String.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).matches("\\d+");
@@ -56,18 +48,11 @@ public class PaymentControllerTest {
 	
 	@Test
 	public void testCreatePaymentCreditCard() {
-		Payment payment = this.mockPayment(11L, PaymentType.CREDIT_CARD, 234.23);
+		Payment payment = this.mockPayment(11L, PaymentType.CREDIT_CARD.getValue(), 234.23);
 		ResponseEntity<String> response = this.restTemplate.postForEntity(this.url + port + "/payments", payment, String.class);
 		List<String> possibleReturns = Arrays.asList(PaymentCardStatus.SUCCESS.getStatus(), PaymentCardStatus.FAIL.getStatus());
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).isIn(possibleReturns);
-		
-		/*Payment payment = this.mockPayment(PaymentType.CREDIT_CARD);
-		Response response = target("/payments").request().post(Entity.json(payment));
-		assertEquals("should return status 200", Status.OK.getStatusCode(), response.getStatus());
-		String returned = response.readEntity(String.class);
-		
-		assertTrue(possibleReturns.contains(returned));*/
 	}
 	
 	@Test 
@@ -77,15 +62,9 @@ public class PaymentControllerTest {
 				Payment.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody().getId()).isEqualTo(id);
-		
-		/*Long id = 1L;
-		Response response = target("/payments/" + id).request().get();
-		assertEquals("should return status 200", 200, response.getStatus());
-		Payment payment = response.readEntity(Payment.class);
-		assertEquals("Payment ID", id, payment.getId());*/
 	}
 	
-	private Payment mockPayment(Long id, PaymentType paymentType, Double amount) {
+	private Payment mockPayment(Long id, Integer paymentType, Double amount) {
 		Payment payment = new Payment();
 		payment.setId(id);
 		payment.setType(paymentType);

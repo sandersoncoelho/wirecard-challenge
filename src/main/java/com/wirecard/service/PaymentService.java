@@ -18,9 +18,9 @@ public class PaymentService {
 	public String createPayment(Payment payment) {
 		paymentRepository.save(payment);
 		
-		if (PaymentType.BOLETO == payment.getType()) {
-			return "123";
-		} else if (PaymentType.CREDIT_CARD == payment.getType()) {
+		if (PaymentType.BOLETO.getValue().equals(payment.getType())) {
+			return "1234567890"; //boleto number
+		} else if (PaymentType.CREDIT_CARD.getValue().equals(payment.getType())) {
 			return PaymentCardStatus.SUCCESS.getStatus();
 		} else {
 			return null;
