@@ -40,8 +40,13 @@ public class PaymentService {
 	 * @return Just a mocking number;
 	 */
 	private String processBoleto(final Payment payment) {
-	    payment.setStatus(PaymentStatus.PENDING.getValue());
-		return "1234567890"; //boleto number
+		if (this.validatePayment(payment) && this.validateBuyer(payment.getBuyer())) {
+			payment.setStatus(PaymentStatus.PENDING.getValue());
+			return "1234567890"; //boleto number mocked
+		} else {
+			payment.setStatus(PaymentStatus.DENIED.getValue());
+			return null;
+		}
 	}
 	
 	/**
@@ -57,6 +62,15 @@ public class PaymentService {
 	    	payment.setStatus(PaymentStatus.DENIED.getValue());
 	    	return PaymentCardStatus.FAIL.getDescription();
 	    }
+	}
+	
+	/**
+	 * Validate payment data. Simulation of validation
+	 * @param payment
+	 * @return true if valid false otherwise
+	 */
+	private boolean validatePayment(final Payment payment) {
+		return payment != null && payment.getAmount() != null && payment.getType() != null;
 	}
 	
 	/**
