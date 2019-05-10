@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.wirecard.enums.PaymentStatus;
 import com.wirecard.enums.PaymentType;
 import com.wirecard.model.Payment;
 
@@ -25,8 +26,10 @@ public class PaymentRepository {
 		return payment;
 	}
 	
-	public void delete(Long id) {
-		
+	public Integer getPaymentStatus(final Long id) {
+		Payment payment = mockPayment(id, PaymentType.CREDIT_CARD.getValue(), 12.12);
+		payment.setStatus(PaymentStatus.DENIED.getValue());
+		return payment.getStatus();
 	}
 	
 	private Payment mockPayment(Long id, Integer paymentType, Double amount) {

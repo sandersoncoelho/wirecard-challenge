@@ -101,4 +101,13 @@ public class PaymentService {
 	public Payment getPayment(final Long id) {
 		return paymentRepository.get(id);
 	}
+	
+	/**
+	 * Retrieve a payment status
+	 * @param id
+	 * @return payment
+	 */
+	public Integer getPaymentStatus(final Long id) {
+		return paymentRepository.getPaymentStatus(id);
+	}
 }

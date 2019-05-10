@@ -37,4 +37,14 @@ public class PaymentController {
     public Payment getPayment(@PathVariable("id") Long id) {
     	return paymentService.getPayment(id);
     }
+	
+	/**
+	 * Endpoint to return the payment status
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/{id:\\d+}/status", method = RequestMethod.GET)
+    public Integer getPaymentStatus(@PathVariable("id") Long id) {
+    	return paymentService.getPaymentStatus(id);
+    }
 }
