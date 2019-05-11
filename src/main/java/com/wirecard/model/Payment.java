@@ -1,18 +1,22 @@
 package com.wirecard.model;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Payment {
-	private Long id;
+	private ObjectId _id;
 	private Double amount;
 	private Integer type;
+	private String boletoNumber;
 	private Card card;
 	private Buyer buyer;
 	private Integer status;
-	
-	public Long getId() {
-		return id;
+	public ObjectId getId() {
+		return _id;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(ObjectId id) {
+		this._id = id;
 	}
 	public Double getAmount() {
 		return amount;
@@ -25,6 +29,12 @@ public class Payment {
 	}
 	public void setType(Integer type) {
 		this.type = type;
+	}
+	public String getBoletoNumber() {
+		return boletoNumber;
+	}
+	public void setBoletoNumber(String boletoNumber) {
+		this.boletoNumber = boletoNumber;
 	}
 	public Card getCard() {
 		return card;

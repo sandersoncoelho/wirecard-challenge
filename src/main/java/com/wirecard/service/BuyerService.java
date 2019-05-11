@@ -11,6 +11,14 @@ public class BuyerService {
 	
 	@Autowired
 	private BuyerRepository buyerRepository;
+	
+	/**
+	 * Get all buyers
+	 * @return all buyers
+	 */
+	public Iterable<Buyer> getAll() {
+		return buyerRepository.findAll();
+	}
 
 	/**
 	 * Persist a buyer 

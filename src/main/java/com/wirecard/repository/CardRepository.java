@@ -1,15 +1,11 @@
 package com.wirecard.repository;
 
+import com.wirecard.model.Card;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CardRepository {
+public interface CardRepository extends CrudRepository<Card, String> {
 	
-	public Boolean isValidCard(String number) {
-		return number != null && number.matches("\\d+");
-	}
-	
-	public String getCardIssuer(String number) {
-		return "MASTER";
-	}
+	public Card findByNumber(String number);
 }

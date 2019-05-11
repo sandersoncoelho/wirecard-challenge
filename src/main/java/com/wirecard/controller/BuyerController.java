@@ -16,6 +16,15 @@ public class BuyerController {
 	
 	@Autowired
 	private BuyerService buyerService;
+	
+	/**
+	 * Get all buyers
+	 * @return all buyers
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public Iterable<Buyer> getAll() {
+		return buyerService.getAll();
+	}
 
 	/**
 	 * Endpoint to create buyers

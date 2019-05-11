@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wirecard.model.Card;
 import com.wirecard.service.CardService;
 
 
@@ -15,6 +16,15 @@ public class CardController {
 	
 	@Autowired
 	private CardService cardService;
+	
+	/**
+	 * Get all cards
+	 * @return all cards
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public Iterable<Card> getAll() {
+		return cardService.getAll();
+	}
 
 	/**
 	 * Endpoint to create cards

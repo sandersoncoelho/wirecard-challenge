@@ -1,18 +1,23 @@
 package com.wirecard.model;
 
 import java.util.Date;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Card {
-	private Long id;
+	@Id
+	private ObjectId _id;
 	private String holderName;
 	private String number;
 	private Date expirationDate;
 	private Integer cvv;
-	public Long getId() {
-		return id;
+	public ObjectId getId() {
+		return _id;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(ObjectId id) {
+		this._id = id;
 	}
 	public String getHolderName() {
 		return holderName;

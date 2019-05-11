@@ -1,13 +1,19 @@
 package com.wirecard.model;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Client {
-	private Long id;
+	@Id
+	private ObjectId _id;
 	private String identification;
-	public Long getId() {
-		return id;
+	public ObjectId getId() {
+		return _id;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(ObjectId id) {
+		this._id = id;
 	}
 	public String getIdentification() {
 		return identification;

@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -34,17 +34,15 @@ public class CardControllerTest {
 
 	@Test
 	public void testCheckCard() {
-		String number = "1234567890";
-		ResponseEntity<Boolean> response = this.restTemplate.getForEntity(this.url + port + "/cards/" + number + "/status", Boolean.class);
+		ResponseEntity<Boolean> response = this.restTemplate.getForEntity(this.url + port + "/cards/1234567890/status", Boolean.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(response.getBody()).isIn(true, false);
+		assertThat(response.getBody()).isFalse();
 	}
 	
 	@Test
 	public void testGetCardIssuer() {
-		String number = "1234567890";
-		ResponseEntity<String> response = this.restTemplate.getForEntity(this.url + port + "/cards/" + number + "/issuer", String.class);
+		ResponseEntity<String> response = this.restTemplate.getForEntity(this.url + port + "/cards/1234567890/issuer", String.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(response.getBody()).isNotBlank();
+		assertThat(response.getBody()).isNull();
 	}
 }

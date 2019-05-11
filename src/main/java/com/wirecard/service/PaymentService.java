@@ -1,5 +1,8 @@
 package com.wirecard.service;
 
+import java.util.Date;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +12,8 @@ import com.wirecard.enums.PaymentType;
 import com.wirecard.model.Buyer;
 import com.wirecard.model.Card;
 import com.wirecard.model.Payment;
+import com.wirecard.repository.BuyerRepository;
+import com.wirecard.repository.CardRepository;
 import com.wirecard.repository.PaymentRepository;
 
 @Service
@@ -16,6 +21,20 @@ public class PaymentService {
 	
 	@Autowired
 	private PaymentRepository paymentRepository;
+	
+	@Autowired
+	private BuyerRepository buyerRepository;
+	
+	@Autowired
+	private CardRepository cardRepository;
+	
+	/**
+	 * Get all payments
+	 * @return all payments
+	 */
+	public Iterable<Payment> getAll() {
+		return paymentRepository.findAll();
+	}
 
 	/**
 	 * Persist a payment requested according if its type: BOLETO or CREDIT CARD 
@@ -23,8 +42,6 @@ public class PaymentService {
 	 * @return A boleto number BOLETO or 'succes' or 'fail' for CREDIT CARD
 	 */
 	public String createPayment(final Payment payment) {
-		paymentRepository.save(payment);
-		
 		if (PaymentType.BOLETO.getValue().equals(payment.getType())) {
 			return processBoleto(payment);
 		} else if (PaymentType.CREDIT_CARD.getValue().equals(payment.getType())) {
@@ -42,11 +59,16 @@ public class PaymentService {
 	private String processBoleto(final Payment payment) {
 		if (this.validatePayment(payment) && this.validateBuyer(payment.getBuyer())) {
 			payment.setStatus(PaymentStatus.PENDING.getValue());
-			return "1234567890"; //boleto number mocked
+			payment.setBoletoNumber(new Date().getTime() + ""); //boleto number mocked
+			
+			Buyer buyer = buyerRepository.save(payment.getBuyer());
+			payment.setBuyer(buyer);
 		} else {
 			payment.setStatus(PaymentStatus.DENIED.getValue());
-			return null;
 		}
+		
+		paymentRepository.save(payment);
+		return payment.getBoletoNumber();
 	}
 	
 	/**
@@ -55,13 +77,24 @@ public class PaymentService {
 	 * @return 'success' or 'fail' according its payment process
 	 */
 	private String processCreditCard(final Payment payment) {
+		String creditCardStatus = null;
+		
 		if (this.validateBuyer(payment.getBuyer()) && validateCard(payment.getCard())) {
 			payment.setStatus(PaymentStatus.PAYED.getValue());
-			return PaymentCardStatus.SUCCESS.getDescription();
+			creditCardStatus = PaymentCardStatus.SUCCESS.getDescription();
+			
+			Buyer buyer = buyerRepository.save(payment.getBuyer());
+			payment.setBuyer(buyer);
+			
+			Card card = cardRepository.save(payment.getCard());
+			payment.setCard(card);
 	    } else {
 	    	payment.setStatus(PaymentStatus.DENIED.getValue());
-	    	return PaymentCardStatus.FAIL.getDescription();
+	    	creditCardStatus = PaymentCardStatus.FAIL.getDescription();
 	    }
+		
+		paymentRepository.save(payment);
+		return creditCardStatus;
 	}
 	
 	/**
@@ -79,7 +112,7 @@ public class PaymentService {
 	 * @return true if valid false otherwise
 	 */
 	private boolean validateBuyer(final Buyer buyer) {
-		return buyer != null && buyer.getId() != null && buyer.getCpf() != null
+		return buyer != null && buyer.getCpf() != null
 				&& buyer.getName() != null;
 	}
 	
@@ -89,8 +122,8 @@ public class PaymentService {
 	 * @return true if valid false otherwise
 	 */
 	private boolean validateCard(final Card card) {
-		return card != null && card.getId() != null && card.getExpirationDate() != null
-				&& card.getNumber() != null && card.getCvv() != null && card.getHolderName() != null;
+		return card != null && card.getExpirationDate() != null && card.getNumber() != null
+				&& card.getCvv() != null && card.getHolderName() != null;
 	}
 
 	/**
@@ -98,8 +131,9 @@ public class PaymentService {
 	 * @param id
 	 * @return payment
 	 */
-	public Payment getPayment(final Long id) {
-		return paymentRepository.get(id);
+	public Payment getPayment(final String id) {
+		Optional<Payment> optional = paymentRepository.findById(id);
+		return optional.isPresent()? optional.get() : null;
 	}
 	
 	/**
@@ -107,7 +141,8 @@ public class PaymentService {
 	 * @param id
 	 * @return payment
 	 */
-	public Integer getPaymentStatus(final Long id) {
-		return paymentRepository.getPaymentStatus(id);
+	public Integer getPaymentStatus(final String id) {
+		Optional<Payment> optional = paymentRepository.findById(id);
+		return optional.isPresent()? optional.get().getStatus() : null;
 	}
 }

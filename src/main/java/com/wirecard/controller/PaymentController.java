@@ -17,6 +17,15 @@ public class PaymentController {
 	
 	@Autowired
 	private PaymentService paymentService;
+	
+	/**
+	 * Get all payments
+	 * @return all payments
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public Iterable<Payment> getAll() {
+		return paymentService.getAll();
+	}
 
 	/**
 	 * Endpoint to create payments
@@ -33,8 +42,8 @@ public class PaymentController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/{id:\\d+}", method = RequestMethod.GET)
-    public Payment getPayment(@PathVariable("id") Long id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Payment getPayment(@PathVariable("id") String id) {
     	return paymentService.getPayment(id);
     }
 	
@@ -43,8 +52,8 @@ public class PaymentController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/{id:\\d+}/status", method = RequestMethod.GET)
-    public Integer getPaymentStatus(@PathVariable("id") Long id) {
+	@RequestMapping(value = "/{id}/status", method = RequestMethod.GET)
+    public Integer getPaymentStatus(@PathVariable("id") String id) {
     	return paymentService.getPaymentStatus(id);
     }
 }

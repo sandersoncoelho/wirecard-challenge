@@ -1,14 +1,9 @@
 package com.wirecard.repository;
 
+import com.wirecard.model.Buyer;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.wirecard.model.Buyer;
-
 @Repository
-public class BuyerRepository {
-	
-	public Buyer save(Buyer buyer) {
-		buyer.setId(12L);
-		return buyer;
-	}
+public interface BuyerRepository extends CrudRepository<Buyer, String> {
 }
