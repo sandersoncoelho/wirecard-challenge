@@ -18,8 +18,8 @@ public class CardController {
 	private CardService cardService;
 	
 	/**
-	 * Get all cards
-	 * @return all cards
+	 * Get all cards.
+	 * @return all cards.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<Card> getAll() {
@@ -27,9 +27,9 @@ public class CardController {
 	}
 
 	/**
-	 * Endpoint to create cards
+	 * Endpoint to check status of a card, given its number.
 	 * @param card
-	 * @return
+	 * @return true if valid, false otherwise.
 	 */
 	@RequestMapping(value = "/{number:\\d+}/status", method = RequestMethod.GET)
     public Boolean isValidCard(@PathVariable("number") String number) {
@@ -37,9 +37,9 @@ public class CardController {
     }
 	
 	/**
-	 * Endpoint to return all the information about the card
+	 * Endpoint to return the card issuer name.
 	 * @param id
-	 * @return
+	 * @return Card issuer name.
 	 */
 	@RequestMapping(value = "/{number:\\d+}/issuer", method = RequestMethod.GET)
     public String getCardIssuer(@PathVariable("number") String number) {

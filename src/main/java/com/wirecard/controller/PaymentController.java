@@ -19,8 +19,8 @@ public class PaymentController {
 	private PaymentService paymentService;
 	
 	/**
-	 * Get all payments
-	 * @return all payments
+	 * Get all payments.
+	 * @return all payments.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<Payment> getAll() {
@@ -28,9 +28,9 @@ public class PaymentController {
 	}
 
 	/**
-	 * Endpoint to create payments
+	 * Endpoint to create payments.
 	 * @param payment
-	 * @return
+	 * @return The number of boleto or 'sucess' or 'fail' for card request payment.
 	 */
 	@RequestMapping(method = RequestMethod.POST)
     public String createPayment(@RequestBody Payment payment) {
@@ -38,9 +38,9 @@ public class PaymentController {
     }
 	
 	/**
-	 * Endpoint to return all the information about the payment
+	 * Endpoint to return all the information about the payment.
 	 * @param id
-	 * @return
+	 * @return Payment.
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Payment getPayment(@PathVariable("id") String id) {
@@ -48,9 +48,9 @@ public class PaymentController {
     }
 	
 	/**
-	 * Endpoint to return the payment status
+	 * Endpoint to return the payment status.
 	 * @param id
-	 * @return
+	 * @return Payments status.
 	 */
 	@RequestMapping(value = "/{id}/status", method = RequestMethod.GET)
     public Integer getPaymentStatus(@PathVariable("id") String id) {

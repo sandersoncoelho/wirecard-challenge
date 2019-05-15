@@ -18,8 +18,8 @@ public class BuyerController {
 	private BuyerService buyerService;
 	
 	/**
-	 * Get all buyers
-	 * @return all buyers
+	 * Get all buyers.
+	 * @return all buyers.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<Buyer> getAll() {
@@ -27,9 +27,9 @@ public class BuyerController {
 	}
 
 	/**
-	 * Endpoint to create buyers
+	 * Endpoint to create buyers.
 	 * @param buyer
-	 * @return
+	 * @return buyer.
 	 */
 	@RequestMapping(method = RequestMethod.POST)
     public Buyer createBuyer(@RequestBody Buyer buyer) {

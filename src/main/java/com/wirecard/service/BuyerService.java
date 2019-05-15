@@ -13,17 +13,17 @@ public class BuyerService {
 	private BuyerRepository buyerRepository;
 	
 	/**
-	 * Get all buyers
-	 * @return all buyers
+	 * Get all buyers.
+	 * @return all buyers.
 	 */
 	public Iterable<Buyer> getAll() {
 		return buyerRepository.findAll();
 	}
 
 	/**
-	 * Persist a buyer 
+	 * Persist a buyer.
 	 * @param buyer
-	 * @return A persisted buyer
+	 * @return A persisted buyer.
 	 */
 	public Buyer createBuyer(final Buyer buyer) {
 		return buyerRepository.save(buyer);

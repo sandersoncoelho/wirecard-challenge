@@ -29,17 +29,17 @@ public class PaymentService {
 	private CardRepository cardRepository;
 	
 	/**
-	 * Get all payments
-	 * @return all payments
+	 * Get all payments.
+	 * @return all payments.
 	 */
 	public Iterable<Payment> getAll() {
 		return paymentRepository.findAll();
 	}
 
 	/**
-	 * Persist a payment requested according if its type: BOLETO or CREDIT CARD 
+	 * Persist a payment requested according if its type: BOLETO or CREDIT CARD.
 	 * @param payment
-	 * @return A boleto number BOLETO or 'succes' or 'fail' for CREDIT CARD
+	 * @return A boleto number BOLETO or 'succes' or 'fail' for CREDIT CARD.
 	 */
 	public String createPayment(final Payment payment) {
 		if (PaymentType.BOLETO.getValue().equals(payment.getType())) {
@@ -54,7 +54,7 @@ public class PaymentService {
 	/**
 	 * Process boleto payment.
 	 * @param payment
-	 * @return Just a mocking number;
+	 * @return Just a mocking number.
 	 */
 	private String processBoleto(final Payment payment) {
 		if (this.validatePayment(payment) && this.validateBuyer(payment.getBuyer())) {
@@ -72,9 +72,9 @@ public class PaymentService {
 	}
 	
 	/**
-	 * Process credit card payment, validating before its datas
+	 * Process credit card payment, validating before its datas.
 	 * @param payment
-	 * @return 'success' or 'fail' according its payment process
+	 * @return 'success' or 'fail' according its payment process.
 	 */
 	private String processCreditCard(final Payment payment) {
 		String creditCardStatus = null;
@@ -98,18 +98,18 @@ public class PaymentService {
 	}
 	
 	/**
-	 * Validate payment data. Simulation of validation
+	 * Validate payment data. Simulation of validation.
 	 * @param payment
-	 * @return true if valid false otherwise
+	 * @return true if valid false otherwise.
 	 */
 	private boolean validatePayment(final Payment payment) {
 		return payment != null && payment.getAmount() != null && payment.getType() != null;
 	}
 	
 	/**
-	 * Validate buyer data. Simulation of validation
+	 * Validate buyer data. Simulation of validation.
 	 * @param buyer
-	 * @return true if valid false otherwise
+	 * @return true if valid false otherwise.
 	 */
 	private boolean validateBuyer(final Buyer buyer) {
 		return buyer != null && buyer.getCpf() != null
@@ -117,9 +117,9 @@ public class PaymentService {
 	}
 	
 	/**
-	 * Validate card data. Simulation of validation
+	 * Validate card data. Simulation of validation.
 	 * @param buyer
-	 * @return true if valid false otherwise
+	 * @return true if valid false otherwise.
 	 */
 	private boolean validateCard(final Card card) {
 		return card != null && card.getExpirationDate() != null && card.getNumber() != null
@@ -127,9 +127,9 @@ public class PaymentService {
 	}
 
 	/**
-	 * Retrieve a payment
+	 * Retrieve a payment.
 	 * @param id
-	 * @return payment
+	 * @return payment.
 	 */
 	public Payment getPayment(final String id) {
 		Optional<Payment> optional = paymentRepository.findById(id);
@@ -137,9 +137,9 @@ public class PaymentService {
 	}
 	
 	/**
-	 * Retrieve a payment status
+	 * Retrieve a payment status.
 	 * @param id
-	 * @return payment
+	 * @return payment.
 	 */
 	public Integer getPaymentStatus(final String id) {
 		Optional<Payment> optional = paymentRepository.findById(id);

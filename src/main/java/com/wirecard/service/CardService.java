@@ -15,17 +15,17 @@ public class CardService {
 	private CardRepository cardRepository;
 	
 	/**
-	 * Get all cards
-	 * @return all cards
+	 * Get all cards.
+	 * @return all cards.
 	 */
 	public Iterable<Card> getAll() {
 		return cardRepository.findAll();
 	}
 
 	/**
-	 * Check card status by its number
-	 * @param card number
-	 * @return true if is valid false otherwise
+	 * Check card status by its number.
+	 * @param card number.
+	 * @return true if is valid false otherwise.
 	 */
 	public Boolean isValidCard(String number) {
 		Card card = cardRepository.findByNumber(number);
@@ -34,9 +34,9 @@ public class CardService {
 	}
 	
 	/**
-	 * Get card issuer by its number
-	 * @param card number
-	 * @return Card issuer
+	 * Get card issuer by its number.
+	 * @param card number.
+	 * @return Card issuer.
 	 */
 	public String getCardIssuer(String number) {
 		Card card = cardRepository.findByNumber(number);
