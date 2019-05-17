@@ -8,14 +8,14 @@ This guide walks you through the process of running the wirecard-challenge API b
 - Apache Maven 3.3.3 or later
 - MongoDB 4.0 or later
 
-**Important:** For running with Maven, the wirecard-challenge application connect to mongo using "localhost" as URL. In this case, it possible running unit test before generating the build.
+**Important:** For running with Maven, the wirecard-challenge application connect to mongo using "localhost" as URL. In this case, it is possible running unit tests before building application.
 
 ###### Steps for run:
 - Download and unzip the source repository or clone it using Git: 
 ```
 git clone https://github.com/sandersoncoelho/wirecard-challenge.git
 ```
-- Enter into wirecard-challenge directory and build
+- Enter into wirecard-challenge directory and build:
 ```
 mvn clean install
 ```
@@ -29,10 +29,10 @@ mvn spring-boot:run
 ###### What you'll need
 - Docker 18.09.2 or later
 
-**Important:** For running with Docker, the container generate from sandersoncoelho/wirecard-challenge image should connect to mongo from other container. Thus, we should create a common network to both containers. Furthermore, the sandersoncoelho/wirecard-challenge container expected an URL 10.11.0.2 for mongodb to work fine.
+**Important:** For running with Docker, the container generated from sandersoncoelho/wirecard-challenge image should connect to mongo from other container. Thus, we should create a common network for both containers. Furthermore, the sandersoncoelho/wirecard-challenge container expect to connect to mongodb through 10.11.0.2 URL.
 
 ###### Steps for run:
-- Create "wirecard-net" network
+- Create "wirecard-net" network:
 ```
 docker network create --subnet=10.11.0.0/16 --gateway=10.11.0.1 wirecard-net
 ```
@@ -40,11 +40,13 @@ docker network create --subnet=10.11.0.0/16 --gateway=10.11.0.1 wirecard-net
 ```
 docker run --network wirecard-net -d mongo
 ```
-- Download and start sandersoncoelho/wirecard-challenge container:
+- Download and start sandersoncoelho/wirecard-challenge container in wirecard-net:
 ```
 docker run --network wirecard-net -p 8080:8080 sandersoncoelho/wirecard-challenge
 ```
-- Access [https://documenter.getpostman.com/view/586792/S1Lzx793?version=latest](https://documenter.getpostman.com/view/586792/S1Lzx793?version=latest) for get instructions to use Wirecard Challenge API.
+- Access [https://documenter.getpostman.com/view/586792/S1Lzx793?version=latest](https://documenter.getpostman.com/view/586792/S1Lzx793?version=latest) to get instructions to use Wirecard Challenge API.
+
+- The docker image of this activity it is available on [https://hub.docker.com/r/sandersoncoelho/wirecard-challenge](https://hub.docker.com/r/sandersoncoelho/wirecard-challenge).
 
 ## The architecture and the design adopted
 
